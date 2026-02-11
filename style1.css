@@ -1,0 +1,461 @@
+/* --- 1. Global & Scrollbar (Saaf Layout) --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background-color: #141414; color: white; font-family: 'Roboto', sans-serif; overflow-x: hidden; }
+html, body { scrollbar-width: none; -ms-overflow-style: none; }
+body::-webkit-scrollbar { display: none; }
+/* --- 1. Navbar: Professional & Clean --- */
+#navbar {
+    position: fixed; 
+    top: 0; 
+    width: 100%; 
+    height: 70px; 
+    display: flex; 
+    justify-content: space-between;
+    align-items: center; 
+    padding: 0 4%; 
+    z-index: 1000; 
+    transition: all 0.4s ease;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, transparent 100%);
+}
+
+.nav-scrolled {
+    background-color: #141414 !important;
+    height: 60px !important; /* Scroll par navbar thoda chota hoga */
+    padding: 0 4% !important;
+}
+
+.nav-left { display: flex; align-items: center; }
+
+.logo { 
+    color: #e50914; 
+    font-size: 1.8rem; 
+    font-weight: 900; 
+    margin-right: 35px; 
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.nav-links { display: flex; list-style: none; gap: 20px; }
+.nav-links a { color: #e5e5e5; text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: 0.3s; }
+.nav-links a:hover { color: #ffffff; }
+
+.nav-right { display: flex; align-items: center; gap: 20px; }
+.nav-right i { color: white; cursor: pointer; font-size: 1.1rem; }
+.profile-box img { width: 32px; height: 32px; border-radius: 4px; display: block; }
+
+/* Laptop par burger menu bilkul nahi dikhega */
+.menu-toggle { display: none !important; }
+/* --- Mobile Responsive Fix --- */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block !important; /* Mobile par icon dikhega */
+        margin-right: 15px;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    .nav-links {
+        display: none; /* Shuru mein chhupa hoga */
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        padding: 20px;
+        text-align: left;
+        border-top: 1px solid #333;
+    }
+
+    /* Jab JavaScript 'active' class add karega, tab list dikhegi */
+    .nav-links.active {
+        display: flex !important;
+    }
+
+    .nav-links li {
+        margin: 15px 0;
+    }
+
+    .nav-links a {
+        font-size: 1.1rem;
+        display: block;
+        width: 100%;
+    }
+}
+
+/* --- 2. Hero Section: Text & Buttons --- */
+.hero {
+    height: 85vh;
+    display: flex;
+    align-items: center;
+    padding: 0 4%;
+    background: linear-gradient(to right, rgba(0,0,0,0.9), rgba(0,0,0,0.2)), 
+                url('photo-1626814026160-2237a95fc5a0.jpg') center/cover;
+}
+
+.hero-content { max-width: 650px; margin-top: 50px; }
+
+.hero-content h1 {
+    font-size: 4rem; 
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    line-height: 1.1;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    line-height: 1.4;
+    color: #e5e5e5;
+}
+
+.top10-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.top10-icon {
+    background: #e50914;
+    color: white;
+    padding: 2px 5px;
+    border-radius: 2px;
+    font-size: 0.7rem;
+    line-height: 1;
+    text-align: center;
+}
+
+.hero-btns { display: flex; gap: 12px; }
+
+.btn {
+    padding: 12px 28px;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s;
+}
+
+.btn-play { background-color: white; color: black; }
+.btn-play:hover { background-color: rgba(255, 255, 255, 0.75); }
+
+.btn-info { background-color: rgba(109, 109, 110, 0.7); color: white; }
+.btn-info:hover { background-color: rgba(109, 109, 110, 0.4); }
+
+/* --- 3. Mobile Specific Fixes --- */
+@media (max-width: 768px) {
+    #navbar { height: 60px; }
+    
+    .menu-toggle { 
+        display: block !important; 
+        color: white; 
+        font-size: 1.5rem; 
+        cursor: pointer;
+    }
+    
+    .nav-links { display: none; } /* Mobile menu toggle logic needed in JS */
+
+    .hero-content h1 { font-size: 2.5rem; }
+    .hero-content p { font-size: 1rem; }
+    .btn { padding: 8px 20px; font-size: 0.9rem; }
+}
+/* Mazeed Choti Screen (480px) ke liye */
+@media (max-width: 480px) {
+    .hero-content h1 { font-size: 1.8rem; }
+    .btn { width: 100%; } /* Buttons full width ho jayenge */
+}
+
+/* --- 3. Movie Row & Swipe Setup --- */
+.row { padding: 20px 0; position: relative; }
+.row h2 { padding-left: 4%; font-size: 1.4rem; margin-bottom: 15px; font-weight: bold; }
+
+.posters-container {
+    display: flex; gap: 10px; overflow-x: auto;
+    padding: 20px 4% 60px 4%; /* Bottom padding Details ke liye */
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+}
+.posters-container::-webkit-scrollbar { display: none; }
+
+/* --- 4. Card Styling & Hover Effect --- */
+.movie-card {
+    flex: 0 0 calc(25% - 15px); /* Laptop: 4 Cards */
+    height: 380px;
+    position: relative;
+    background: #181818;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    scroll-snap-align: start;
+    overflow: visible; /* Details dikhane ke liye */
+}
+
+.movie-card:hover {
+    transform: scale(1.1); /* Card thoda bada hoga */
+    z-index: 100;
+}
+
+.movie-card img {
+    width: 100%; height: 100%; object-fit: cover; border-radius: 8px;
+}
+
+/* --- 5. Movie Info (Detail Overlay) --- */
+.movie-info {
+    position: absolute; bottom: -50px; left: 0; width: 100%;
+    background: #181818; padding: 15px 10px;
+    opacity: 0; transition: opacity 0.3s ease;
+    border-bottom-left-radius: 8px; border-bottom-right-radius: 8px;
+    box-shadow: 0px 10px 20px rgba(0,0,0,0.5);
+}
+
+.movie-card:hover .movie-info {
+    opacity: 1; /* Hover par details dikhengi */
+    bottom: 0; /* Smoothly upar aayega */
+}
+
+.match { color: #46d369; font-weight: bold; font-size: 0.8rem; display: block; }
+.title { color: white; font-size: 0.9rem; margin: 4px 0; font-weight: bold; }
+.genres { color: #aaa; font-size: 0.75rem; }
+
+/* --- 6. Scroll Buttons Styling --- */
+.scroll-btn {
+    position: absolute; width: 45px; height: 45px;
+    background: rgba(229, 9, 20, 0.8); color: white;
+    border: none; border-radius: 50%; z-index: 100; cursor: pointer;
+    display: flex; justify-content: center; align-items: center;
+    font-size: 1.2rem; opacity: 0; transition: 0.3s;
+    top: 50%; transform: translateY(-50%);
+}
+.row-wrapper:hover .scroll-btn { opacity: 1; }
+.left-btn { left: 1%; }
+.right-btn { right: 1%; }
+
+/* --- 7. Mobile Responsive (3 Cards & Swipe) --- */
+@media (max-width: 768px) {
+    .movie-card {
+        flex: 0 0 calc(33.33% - 10px) !important; /* Force 3 cards */
+        height: 180px !important;
+    }
+    
+    .movie-info {
+        opacity: 1; /* Mobile par details hamesha dikhen */
+        bottom: 0; background: rgba(0,0,0,0.7); padding: 5px;
+    }
+    .movie-info .title { font-size: 0.7rem; }
+    .movie-card:hover { transform: none; } /* Mobile par zoom off */
+    
+    .scroll-btn { display: none; } /* Mobile par sirf swipe chalega */
+    .posters-container { padding: 10px 4% 20px 4%; }
+}
+/* --- 8. Footer: Professional & Responsive --- */
+.footer { 
+    padding: 50px 4%; 
+    color: #808080; 
+    border-top: 1px solid #333; 
+    margin-top: 50px;
+    background-color: #141414;
+}
+
+.footer-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.footer-links { 
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr); /* Desktop par 4 columns */
+    gap: 20px; 
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li { 
+    font-size: 0.85rem; 
+    margin-bottom: 12px; 
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.footer-links li:hover {
+    text-decoration: underline;
+}
+
+.footer-copyright {
+    margin-top: 30px;
+    font-size: 0.75rem;
+}
+
+/* --- Responsive Device Logic --- */
+
+/* Tablets (1024px se niche) */
+@media (max-width: 1024px) {
+    .footer-links { 
+        grid-template-columns: repeat(3, 1fr); /* Tablet par 3 columns */
+    }
+}
+
+/* Mobile Screens (768px se niche) */
+@media (max-width: 768px) {
+    .footer {
+        padding: 30px 5%; /* Mobile par padding thodi kam */
+    }
+
+    .footer-links { 
+        grid-template-columns: repeat(2, 1fr); /* Mobile par 2 columns taake text saaf dikhe */
+        gap: 15px;
+    }
+
+    .footer-links li {
+        font-size: 0.8rem; /* Chota text mobile ke liye */
+    }
+}
+
+/* Very Small Mobiles (480px se niche) */
+@media (max-width: 480px) {
+    .footer-links { 
+        grid-template-columns: 1fr; /* Bohat choti screen par 1 column */
+        text-align: center; /* Optionally center align for small phones */
+    }
+    
+    .footer-copyright {
+        text-align: center;
+    }
+}
+/* Desktop par hover chalega */
+@media (min-width: 769px) {
+    .movie-card:hover { transform: scale(1.08); z-index: 10; }
+    .movie-card:hover .movie-info { transform: translateY(0); }
+}
+
+/* Mobile Fix: Hover khatam aur detail box hidden */
+@media (max-width: 768px) {
+    .movie-card {
+        transform: none !important; /* Card bada nahi hoga */
+        -webkit-tap-highlight-color: transparent; /* Click blue box khatam */
+    }
+    
+    .movie-info {
+        transform: translateY(100%); /* Shuru mein niche rahega */
+        transition: transform 0.3s ease;
+    }
+
+    /* Jab card par 'active' class aaye tab detail dikhe */
+    .movie-card.active .movie-info {
+        transform: translateY(0);
+    }
+}
+/* Desktop Hover (Sirf 769px se upar) */
+@media (min-width: 769px) {
+    .movie-card:hover { 
+        transform: scale(1.1); 
+        z-index: 10; 
+    }
+    .movie-card:hover .movie-info { 
+        transform: translateY(0); 
+    }
+}
+
+/* Mobile Fix (768px se niche) */
+@media (max-width: 768px) {
+    .movie-card {
+        transform: none !important; /* Mobile par card bada nahi hoga */
+        flex: 0 0 130px; /* Card size thoda chota mobile ke liye */
+        height: 190px;
+    }
+
+    /* Swipe ke liye container settings */
+    .posters-container {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 10px;
+        padding: 10px 4%;
+    }
+
+    /* Click karne par jo detail ayegi */
+    .movie-card.active .movie-info {
+        transform: translateY(0);
+        background: rgba(0, 0, 0, 0.9);
+    }
+}
+/* Swipe buttons ko card ke upar lane ke liye */
+.scroll-btn {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50px;
+    background: rgba(235, 5, 5, 0.3); /* Halka black background */
+    color: rgb(241, 13, 13);
+    border: none;
+    font-size: 2rem;
+    z-index: 1000 !important; /* Yeh sabse zaroori hai - Card se upar rakhega */
+    cursor: pointer;
+    transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scroll-btn:hover {
+    background: rgba(0, 0, 0, 0.7); /* Hover par thoda dark */
+}
+
+.scroll-btn.left { left: 0; }
+.scroll-btn.right { right: 0; }
+
+/* Jab card hover ho toh wo buttons ke neeche rahe */
+.movie-card:hover {
+    z-index: 500; /* Buttons se kam rakha hai */
+    transform: scale(1.1);
+}
+.row-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.scroll-btn {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50px;
+    background: rgba(0, 0, 0, 0.4);
+    color: white;
+    border: none;
+    font-size: 3rem;
+    z-index: 9999 !important; /* Sabse upar */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+    /* Isse button click block nahi hoga */
+    pointer-events: all; 
+}
+
+.scroll-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+    color: red; /* Check karne ke liye ke hover ho raha hai */
+}
+
+.scroll-btn.left { left: 0; }
+.scroll-btn.right { right: 0; }
+
+/* Mobile par buttons chhupane hain ya dikhane? Abhi dikh rahe hain */
+@media (max-width: 768px) {
+    .scroll-btn {
+        width: 40px;
+        font-size: 2rem;
+        background: rgba(0, 0, 0, 0.2);
+    }
+}
