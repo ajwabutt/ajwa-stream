@@ -13,7 +13,7 @@ const movieData = [
     {
         title: "Popular on AJWA STREAM",
         movies: [
-            { t: "Queen of Tears", m: "96%", a: "18+", g: "Drama", img: "queen.jpg" },
+            { t: "Queen of Tears", m: "96%", a: "18+", g: "Drama", img: "Queen.jpg" },
             { t: "Bridgerton", m: "95%", a: "16+", g: "Romantic", img: "Bridgerton.jpg" },
             { t: "Money Heist", m: "94%", a: "18+", g: "Heist", img: "Money.jpg" },
             { t: "shrek", m: "98%", a: "13+", g: "animation", img: "shrek.jpg" },
