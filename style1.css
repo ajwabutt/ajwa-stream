@@ -206,7 +206,44 @@ body::-webkit-scrollbar { display: none; }
     .hero-content h1 { font-size: 1.8rem; }
     .btn { width: 100%; } /* Buttons full width ho jayenge */
 }
+@media (max-width: 768px) {
+    /* Menu ko shuru mein hide rakho aur screen ke upar set karo */
+    .nav-links {
+        display: none; 
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        flex-direction: column;
+        padding: 20px 0;
+        text-align: center;
+        z-index: 1000;
+    }
 
+    /* Jab JS 'active' class lagaye toh show karo */
+    .nav-links.active {
+        display: flex !important;
+    }
+
+    .nav-links li {
+        margin: 15px 0;
+    }
+
+    .menu-toggle {
+        display: block; /* Hamburger icon mobile par dikhna chahiye */
+        font-size: 1.5rem;
+        cursor: pointer;
+        margin-right: 15px;
+    }
+}
+
+/* Desktop par hamburger ko chhupa do */
+@media (min-width: 769px) {
+    .menu-toggle {
+        display: none;
+    }
+}
 
 
 

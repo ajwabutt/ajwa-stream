@@ -93,3 +93,13 @@ window.onload = () => {
         else nav.style.background = "transparent";
     });
 };
+// Hamburger Toggle Function
+const menuBtn = document.getElementById('menu-btn');
+const navMenu = document.getElementById('nav-menu');
+
+if (menuBtn && navMenu) {
+    menuBtn.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        console.log("Menu toggled"); // Tasalli ke liye
+    });
+}
