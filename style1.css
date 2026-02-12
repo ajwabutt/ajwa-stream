@@ -4,58 +4,95 @@ body { background-color: #141414; color: white; font-family: 'Roboto', sans-seri
 html, body { scrollbar-width: none; -ms-overflow-style: none; }
 body::-webkit-scrollbar { display: none; }
 /* --- 1. Navbar: Professional & Clean --- */
+/* 1. Global Reset for Navbar */
 #navbar {
     position: fixed; 
     top: 0; 
     width: 100%; 
     height: 70px; 
     display: flex; 
-    justify-content: space-between;
+    justify-content: space-between; /* Left aur Right sections ko corners par rakhta hai */
     align-items: center; 
     padding: 0 4%; 
     z-index: 1000; 
-    transition: all 0.4s ease;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, transparent 100%);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, transparent 100%);
+    box-sizing: border-box; /* Padding ko width ke andar rakhta hai */
+    transition: 0.3s;
 }
 
-.nav-scrolled {
-    background-color: #141414 !important;
-    height: 60px !important; /* Scroll par navbar thoda chota hoga */
-    padding: 0 4% !important;
+/* 2. Left Section: Hamburger + Logo + Links */
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
-
-.nav-left { display: flex; align-items: center; }
 
 .logo { 
     color: #e50914; 
-    font-size: 1.8rem; 
+    font-size: 1.6rem; 
     font-weight: 900; 
-    margin-right: 35px; 
     text-decoration: none;
     text-transform: uppercase;
+    white-space: nowrap;
 }
 
-.nav-links { display: flex; list-style: none; gap: 20px; }
-.nav-links a { color: #e5e5e5; text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: 0.3s; }
-.nav-links a:hover { color: #ffffff; }
+.nav-links {
+    display: flex; 
+    list-style: none;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+}
 
-.nav-right { display: flex; align-items: center; gap: 20px; }
-.nav-right i { color: white; cursor: pointer; font-size: 1.1rem; }
-.profile-box img { width: 32px; height: 32px; border-radius: 4px; display: block; }
+.nav-links a {
+    color: #e5e5e5;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
 
-/* Laptop par burger menu bilkul nahi dikhega */
-.menu-toggle { display: none !important; }
-/* --- Mobile Responsive Fix --- */
-@media (max-width: 768px) {
-    .menu-toggle {
-        display: block !important; /* Mobile par icon dikhega */
-        margin-right: 15px;
-        font-size: 1.5rem;
-        cursor: pointer;
-    }
+/* 3. Right Section: Search + Bell + Profile Pic */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Icons ke beech ka fasla */
+}
 
+.nav-right i {
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.profile-box img { 
+    width: 32px; 
+    height: 32px; 
+    border-radius: 4px; 
+    object-fit: cover; /* Image ko stretch hone se rokta hai */
+    display: block;
+}
+
+.menu-toggle {
+    display: none; /* Laptop/iPad Pro par hide rahega */
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* --- RESPONSIVE SETTINGS --- */
+
+/* A. Laptop & iPad Pro (1024px and above) */
+@media (min-width: 1024px) {
+    .menu-toggle { display: none !important; }
+    .nav-links { display: flex !important; }
+}
+
+/* B. Tablets & Mobile (Below 1024px) */
+@media (max-width: 1023px) {
+    .menu-toggle { display: block; } /* Hamburger icon dikhega */
+    
     .nav-links {
-        display: none; /* Shuru mein chhupa hoga */
+        display: none; /* Links ko default mein hide kiya */
         flex-direction: column;
         position: absolute;
         top: 70px;
@@ -64,23 +101,20 @@ body::-webkit-scrollbar { display: none; }
         background: rgba(0, 0, 0, 0.95);
         padding: 20px;
         text-align: left;
-        border-top: 1px solid #333;
     }
 
-    /* Jab JavaScript 'active' class add karega, tab list dikhegi */
+    /* JavaScript ke liye active class */
     .nav-links.active {
-        display: flex !important;
+        display: flex;
     }
+}
 
-    .nav-links li {
-        margin: 15px 0;
-    }
-
-    .nav-links a {
-        font-size: 1.1rem;
-        display: block;
-        width: 100%;
-    }
+/* C. Samsung S8 / iPhone SE (Narrow Screens) */
+@media (max-width: 480px) {
+    #navbar { height: 60px; padding: 0 15px; }
+    .logo { font-size: 1.1rem; }
+    .nav-right { gap: 12px; }
+    .profile-box img { width: 28px; height: 28px; }
 }
 
 /* --- 2. Hero Section: Text & Buttons --- */
@@ -173,88 +207,89 @@ body::-webkit-scrollbar { display: none; }
     .btn { width: 100%; } /* Buttons full width ho jayenge */
 }
 
-/* --- 3. Movie Row & Swipe Setup --- */
-.row { padding: 20px 0; position: relative; }
-.row h2 { padding-left: 4%; font-size: 1.4rem; margin-bottom: 15px; font-weight: bold; }
 
+
+
+
+/* --- 3. Movie Row & Swipe Setup --- */
+
+/* Layout & Row Fix */
+.row { margin-bottom: 20px; }
+.row-title { color: white; margin-left: 4%; font-size: 1.1rem; }
+.row-wrapper { position: relative; display: flex; align-items: center; }
+
+/* Posters Container */
 .posters-container {
-    display: flex; gap: 10px; overflow-x: auto;
-    padding: 20px 4% 60px 4%; /* Bottom padding Details ke liye */
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 10px 4%;
     scroll-behavior: smooth;
-    scroll-snap-type: x mandatory;
+    width: 100%;
 }
 .posters-container::-webkit-scrollbar { display: none; }
 
-/* --- 4. Card Styling & Hover Effect --- */
+/* Card Styling (3 Cards fix for Mobile) */
 .movie-card {
-    flex: 0 0 calc(25% - 15px); /* Laptop: 4 Cards */
-    height: 380px;
+    flex: 0 0 calc(33.33% - 12px);
+    height: 160px;
     position: relative;
-    background: #181818;
-    border-radius: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #000;
     cursor: pointer;
-    transition: transform 0.3s ease;
-    scroll-snap-align: start;
-    overflow: visible; /* Details dikhane ke liye */
 }
 
-.movie-card:hover {
-    transform: scale(1.1); /* Card thoda bada hoga */
-    z-index: 100;
+.movie-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
+
+/* The Details Overlay */
+.movie-info-overlay {
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,1) 50%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 10px;
+    box-sizing: border-box;
+    /* Shuru mein hidden rakhen */
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s ease;
+    z-index: 50;
+    pointer-events: none; /* Card click ko na roke */
 }
 
-.movie-card img {
-    width: 100%; height: 100%; object-fit: cover; border-radius: 8px;
+/* Click karne par Active state */
+.movie-card.active .movie-info-overlay {
+    opacity: 1 !important;
+    visibility: visible !important;
 }
+.movie-card.active img { filter: brightness(0.4); }
 
-/* --- 5. Movie Info (Detail Overlay) --- */
-.movie-info {
-    position: absolute; bottom: -50px; left: 0; width: 100%;
-    background: #181818; padding: 15px 10px;
-    opacity: 0; transition: opacity 0.3s ease;
-    border-bottom-left-radius: 8px; border-bottom-right-radius: 8px;
-    box-shadow: 0px 10px 20px rgba(0,0,0,0.5);
-}
+/* Text Elements Styling */
+.watch-tag { background: #e50914; color: white; padding: 1px 4px; font-size: 8px; font-weight: bold; width: fit-content; }
+.match-text { color: #46d369; font-size: 10px; font-weight: bold; margin-top: 2px; }
+.movie-name { color: white; font-size: 11px; font-weight: bold; margin-top: 2px; }
+.movie-desc { color: #aaa; font-size: 9px; margin-top: 1px; }
 
-.movie-card:hover .movie-info {
-    opacity: 1; /* Hover par details dikhengi */
-    bottom: 0; /* Smoothly upar aayega */
-}
-
-.match { color: #46d369; font-weight: bold; font-size: 0.8rem; display: block; }
-.title { color: white; font-size: 0.9rem; margin: 4px 0; font-weight: bold; }
-.genres { color: #aaa; font-size: 0.75rem; }
-
-/* --- 6. Scroll Buttons Styling --- */
+/* Scroll Buttons */
 .scroll-btn {
-    position: absolute; width: 45px; height: 45px;
-    background: rgba(229, 9, 20, 0.8); color: white;
-    border: none; border-radius: 50%; z-index: 100; cursor: pointer;
-    display: flex; justify-content: center; align-items: center;
-    font-size: 1.2rem; opacity: 0; transition: 0.3s;
-    top: 50%; transform: translateY(-50%);
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 35px; height: 35px; background: rgba(0,0,0,0.6);
+    color: white; border: none; border-radius: 50%; z-index: 100; cursor: pointer;
+    font-size: 20px; display: flex; align-items: center; justify-content: center;
 }
-.row-wrapper:hover .scroll-btn { opacity: 1; }
-.left-btn { left: 1%; }
-.right-btn { right: 1%; }
+.left-btn { left: 5px; } .right-btn { right: 5px; }
 
-/* --- 7. Mobile Responsive (3 Cards & Swipe) --- */
-@media (max-width: 768px) {
-    .movie-card {
-        flex: 0 0 calc(33.33% - 10px) !important; /* Force 3 cards */
-        height: 180px !important;
-    }
-    
-    .movie-info {
-        opacity: 1; /* Mobile par details hamesha dikhen */
-        bottom: 0; background: rgba(0,0,0,0.7); padding: 5px;
-    }
-    .movie-info .title { font-size: 0.7rem; }
-    .movie-card:hover { transform: none; } /* Mobile par zoom off */
-    
-    .scroll-btn { display: none; } /* Mobile par sirf swipe chalega */
-    .posters-container { padding: 10px 4% 20px 4%; }
+/* Desktop View (4 Cards) */
+@media (min-width: 769px) {
+    .movie-card { flex: 0 0 calc(25% - 15px); height: 320px; }
+    .movie-card:hover .movie-info-overlay { opacity: 1; visibility: visible; }
 }
+
+
 /* --- 8. Footer: Professional & Responsive --- */
 .footer { 
     padding: 50px 4%; 
@@ -269,66 +304,75 @@ body::-webkit-scrollbar { display: none; }
     margin: 0 auto;
 }
 
+/* Social Icons Fix */
+.social-icons {
+    margin-bottom: 20px;
+}
+.social-icons i {
+    font-size: 1.2rem;
+    color: white;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+/* Dots hatane ki main logic */
 .footer-links { 
     display: grid; 
-    grid-template-columns: repeat(4, 1fr); /* Desktop par 4 columns */
+    grid-template-columns: repeat(4, 1fr); 
     gap: 20px; 
-    list-style: none;
+}
+
+.footer-links ul {
+    list-style: none; /* Isse dots hatenge */
     padding: 0;
+    margin: 0;
 }
 
 .footer-links li { 
     font-size: 0.85rem; 
     margin-bottom: 12px; 
     cursor: pointer;
-    transition: color 0.3s;
 }
 
 .footer-links li:hover {
     text-decoration: underline;
 }
 
-.footer-copyright {
-    margin-top: 30px;
+/* Service Code Button */
+.service-code {
+    background: transparent;
+    color: #808080;
+    border: 1px solid #808080;
+    padding: 8px;
     font-size: 0.75rem;
+    margin: 20px 0;
+    cursor: pointer;
 }
 
-/* --- Responsive Device Logic --- */
-
-/* Tablets (1024px se niche) */
-@media (max-width: 1024px) {
-    .footer-links { 
-        grid-template-columns: repeat(3, 1fr); /* Tablet par 3 columns */
-    }
+.footer-copyright {
+    font-size: 0.7rem;
 }
 
-/* Mobile Screens (768px se niche) */
+/* --- Responsive Fixes --- */
+
+/* Mobile (768px se niche) */
 @media (max-width: 768px) {
-    .footer {
-        padding: 30px 5%; /* Mobile par padding thodi kam */
-    }
-
     .footer-links { 
-        grid-template-columns: repeat(2, 1fr); /* Mobile par 2 columns taake text saaf dikhe */
-        gap: 15px;
+        grid-template-columns: repeat(2, 1fr); /* Mobile par dots ke bagair 2 columns */
+        gap: 10px;
     }
-
-    .footer-links li {
-        font-size: 0.8rem; /* Chota text mobile ke liye */
-    }
+    .footer { text-align: left; padding: 30px 5%; }
 }
 
-/* Very Small Mobiles (480px se niche) */
+/* Very Small Mobile (480px) */
 @media (max-width: 480px) {
-    .footer-links { 
-        grid-template-columns: 1fr; /* Bohat choti screen par 1 column */
-        text-align: center; /* Optionally center align for small phones */
+    .footer-links {
+        grid-template-columns: repeat(2, 1fr); /* 1 column ki bajaye 2 hi rakhen taaki space bache */
     }
-    
-    .footer-copyright {
-        text-align: center;
-    }
+    .social-icons { text-align: left; }
 }
+
+
 /* Desktop par hover chalega */
 @media (min-width: 769px) {
     .movie-card:hover { transform: scale(1.08); z-index: 10; }
